@@ -15,15 +15,19 @@ import java.util.List;
 public class UserServiceTest {
 
     //依赖注入
-//    @Test
-//    public void
+    @Test
+    public void saveUser() {
+        ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+        UserServiceImpl userService = (UserServiceImpl) ac.getBean("userService");
+        userService.saveUser("liuh");
+    }
 
     @Test
     public void getUserListBySpring() {
         ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
         UserServiceImpl userService = (UserServiceImpl) ac.getBean("userService");
         System.out.println("" + userService.getUserList());
-        System.out.println(""+userService.getUserNameByIds("aaa","bbb"));
+        System.out.println("" + userService.getUserNameByIds("aaa", "bbb"));
         System.out.println(userService.getName());
     }
 
