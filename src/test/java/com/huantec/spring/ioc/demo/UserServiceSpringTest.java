@@ -1,4 +1,4 @@
-package ioc.demo;
+package com.huantec.spring.ioc.demo;
 
 import com.huantec.spring.ioc.demo.UserService;
 import org.junit.Test;

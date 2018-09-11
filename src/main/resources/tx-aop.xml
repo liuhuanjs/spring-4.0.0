@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                            http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/context
+                            http://www.springframework.org/schema/context/spring-context.xsd
+                            http://www.springframework.org/schema/aop
+                            http://www.springframework.org/schema/aop/spring-aop.xsd
+                            http://www.springframework.org/schema/tx
+                            http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- 配置事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- 配置事务增强 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <!--
+                name		：绑定事务的方法名，可以使用通配符，可以配置多个。
+                propagation	：传播行为
+                isolation	：隔离级别
+                read-only	：是否只读
+                timeout		：超时信息
+                rollback-for：发生哪些异常回滚.
+                no-rollback-for：发生哪些异常不回滚.
+             -->
+            <!-- 哪些方法加事务 -->
+            <tx:method name="pay" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- 内置的连接池：先配置连接池 -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql:///spring_day03"/>
+        <property name="username" value="root"/>
+        <property name="password" value="213"/>
+    </bean>
+
+    <!-- 配置JDBC的模板类 -->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--默认会依据jdbcTemplate的dataSource自己创建jdbcTemplate-->
+    <bean id="accountDao" class="com.huantec.spring.aop.demo4.dao.impl.AccountDaoImp">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+
+    <bean id="accountService" class="com.huantec.spring.aop.demo4.service.impl.AccountServiceImpl">
+    </bean>
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+

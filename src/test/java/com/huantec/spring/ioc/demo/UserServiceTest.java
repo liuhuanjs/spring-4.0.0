@@ -1,6 +1,5 @@
-package ioc.demo;
+package com.huantec.spring.ioc.demo;
 
-import com.huantec.spring.ioc.demo.UserService;
 import com.huantec.spring.ioc.demo.impl.UserServiceImpl;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
