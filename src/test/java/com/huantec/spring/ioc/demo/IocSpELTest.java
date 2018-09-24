@@ -8,18 +8,16 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.annotation.Resource;
 
 /**
- * Spring整合JUnit4
- *
- * @author liuhuan 2018-09-09
+ * @author liuhuan 2018-09-24
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:ioc-annotation.xml")
-public class UserServiceSpringTest {
-    @Resource(name = "userService")
-    private UserService userService;
+@ContextConfiguration("classpath:ioc-SpEL.xml")
+public class IocSpELTest {
+    @Resource(name = "controller")
+    private Controller controller;
 
     @Test
-    public void getUserList() {
-        System.out.println(userService.getUserList());
+    public void run() {
+        controller.start();
     }
 }

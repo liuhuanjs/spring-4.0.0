@@ -32,9 +32,15 @@ public class UserServiceImpl implements UserService {
 //    //按照id注入(推荐，精准)
 //    private UserDao userDao;
 
+
+
     @Resource(name = "userDao")
     // java注解，(推荐，精准，简单)按照这里的name去查找ac中的id进行注入
-    private UserDao userDao;
+    public UserDao userDao;
+
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
     public void setName(String name) {
         this.name = name;
