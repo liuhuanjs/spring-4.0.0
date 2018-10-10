@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <bean id="serviceAop" class="com.huantec.spring.aop.demo6.MyXmlServiceAop"></bean>
+
+    <aop:config>
+        <aop:aspect ref="serviceAop">
+            <!--<aop:pointcut expression="execution(* com.huantec.spring.aop.demo6.MyXmlService.handlerXml(..)) "-->
+                          <!--id="handlerXml"/> &lt;!&ndash; 带参 切点&ndash;&gt;-->
+            <!--<aop:before method="beforeHandler" pointcut-ref="handlerXml"/> &lt;!&ndash; 前置通知，传递参数 &ndash;&gt;-->
+
+            <aop:pointcut expression="execution(* com.huantec.spring.aop.demo6.MyXmlService.handlerXml(..)) and args(name,age)" id="handlerXml"/> <!-- 带参 切点-->
+            <aop:before method="beforeHandler" pointcut-ref="handlerXml" arg-names="name,age" /> <!-- 前置通知，传递参数 -->
+
+            <!--<aop:pointcut expression="execution(* com.huantec.spring.aop.demo6.MyXmlService.handlerXml(..))" id="handlerXml2"/> &lt;!&ndash; 不带参 切点 &ndash;&gt;-->
+            <!--<aop:around method="aroundHandler" pointcut-ref="handlerXml2"/> &lt;!&ndash; 环绕通知 &ndash;&gt;-->
+            <!--<aop:after method="afterHandler" pointcut-ref="handlerXml2"/> &lt;!&ndash; 后置通知 &ndash;&gt;-->
+            <!--<aop:after-returning method="returnHandler" pointcut-ref="handlerXml2" returning="name"/> &lt;!&ndash; 返回通知 &ndash;&gt;-->
+            <!--<aop:after-throwing method="throwExceptionHandler" throwing="ex" pointcut-ref="handlerXml2"/> &lt;!&ndash; 异常通知 &ndash;&gt;-->
+        </aop:aspect>
+    </aop:config>
+
+    <bean id="myXmlService" class="com.huantec.spring.aop.demo6.MyXmlServiceImpl"></bean>
+</beans>
